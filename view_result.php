@@ -2,13 +2,13 @@
 session_start();
 require 'db.php';
 
-// लॉगिन चेक
+
 if (!isset($_SESSION['admin_logged_in'])) {
     header("Location: login.php");
     exit();
 }
 
-// URL मधून विद्यार्थ्याचा ID घेणे
+
 if (!isset($_GET['id'])) {
     header("Location: index.php");
     exit();
@@ -23,12 +23,12 @@ if ($query->num_rows == 0) {
 
 $student = $query->fetch_assoc();
 
-// पास की नापास चेक करणे
+
 $is_pass = ($student['math_marks'] >= 35 && $student['science_marks'] >= 35 && $student['english_marks'] >= 35);
 $status = $is_pass ? "PASS" : "FAIL";
 $percentage = round(($student['total_marks'] / 300) * 100, 2);
 
-// ग्रेड ठरवण्यासाठी फंक्शन
+
 function getGrade($marks) {
     if ($marks >= 80) return "O (Outstanding)";
     if ($marks >= 70) return "A+ (Excellent)";
@@ -63,7 +63,7 @@ function getGrade($marks) {
         .print-btn { display: block; width: 200px; margin: 30px auto 0; padding: 10px; background: #3498db; color: white; text-align: center; text-decoration: none; font-size: 18px; border-radius: 5px; cursor: pointer; border: none; }
         .print-btn:hover { background: #2980b9; }
         
-        /* प्रिंट करताना बटण लपवणे */
+        
         @media print {
             .print-btn { display: none; }
             body { background: white; padding: 0; }
