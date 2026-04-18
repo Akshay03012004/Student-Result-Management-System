@@ -5,15 +5,15 @@ $error = "";
 
 if (isset($_POST['search'])) {
     $roll_no = $_POST['roll_no'];
-    $mothers_name = $_POST['mothers_name']; // आईचं नाव घेतोय
+    $mothers_name = $_POST['mothers_name']; 
     
-    // SQL Query मध्ये 'AND' वापरला आहे, म्हणजे दोन्ही बरोबर हवेत
+   
     $query = $conn->query("SELECT * FROM results WHERE roll_no = '$roll_no' AND mothers_name = '$mothers_name'");
     
     if ($query->num_rows > 0) {
         $student_data = $query->fetch_assoc();
     } else {
-        // जर एकही गोष्ट चुकली तर हा एरर येईल
+       
         $error = "❌ Invalid Details! Please check Roll Number & Mother's Name.";
     }
 }
