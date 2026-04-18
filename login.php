@@ -2,7 +2,7 @@
 session_start();
 include 'db.php';
 
-// जर एडमिन आधीच लॉगिन असेल, तर त्याला थेट index.php वर पाठवा
+
 if(isset($_SESSION['admin_logged_in'])){
     header("Location: index.php");
     exit();
@@ -13,14 +13,14 @@ if (isset($_POST['login'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    // डेटाबेसमध्ये युझरनेम आणि पासवर्ड चेक करणे
+    
     $sql = "SELECT * FROM admins WHERE username='$username' AND password='$password'";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
         $_SESSION['admin_logged_in'] = true;
         $_SESSION['admin_username'] = $username;
-        header("Location: index.php"); // लॉगिन झाल्यावर डॅशबोर्डवर जा
+        header("Location: index.php"); 
         exit();
     } else {
         $error = "❌ Invalid Username or Password!";
