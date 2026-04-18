@@ -2,28 +2,27 @@
 session_start();
 require 'db.php'; 
 
-// जर ॲडमिन लॉगिन नसेल तर लॉगिन पेजवर पाठवा
 if(!isset($_SESSION['admin_logged_in'])) {
     header("Location: login.php");
     exit();
 }
 
-// डॅशबोर्ड कॅल्क्युलेशन
+
 $total_students = $conn->query("SELECT COUNT(id) as count FROM results")->fetch_assoc()['count'];
 $passed = $conn->query("SELECT COUNT(id) as count FROM results WHERE math_marks >= 35 AND science_marks >= 35 AND english_marks >= 35")->fetch_assoc()['count'];
 $failed = $total_students - $passed;
 $avg_marks = round($conn->query("SELECT AVG(total_marks) as avg_marks FROM results")->fetch_assoc()['avg_marks'] ?? 0, 2);
 
-// विद्यार्थी डिलीट करण्याचा कोड
+
 if (isset($_GET['delete_id'])) {
     $conn->query("DELETE FROM results WHERE id = " . $_GET['delete_id']);
     echo "<script>window.location.href='index.php';</script>";
 }
 
-// नवीन विद्यार्थी ॲड करण्याचा कोड
+
 if (isset($_POST['submit'])) {
     $name = $_POST['student_name'];
-    $mname = $_POST['mothers_name']; // आईचं नाव
+    $mname = $_POST['mothers_name']; 
     $roll = $_POST['roll_no'];
     $math = $_POST['math'];
     $sci = $_POST['science'];
@@ -67,7 +66,7 @@ if (isset($_POST['submit'])) {
         .error { background-color: #fdedec; color: #e74c3c; border: 1px solid #e74c3c; }
         .logout-btn { display: inline-block; background: #e74c3c; color: white; padding: 8px 15px; text-decoration: none; border-radius: 5px; font-weight: bold; float: right; margin-bottom: 20px; }
         
-        /* ॲक्शन बटन्सची डिझाईन */
+        
         .btn-view { background: #3498db; color: white; padding: 6px 12px; text-decoration: none; border-radius: 5px; font-weight: bold; margin-right: 5px; font-size: 13px; }
         .btn-edit { background: #f39c12; color: white; padding: 6px 12px; text-decoration: none; border-radius: 5px; font-weight: bold; margin-right: 5px; font-size: 13px; }
         .btn-delete { background: #e74c3c; color: white; padding: 6px 12px; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 13px; }
