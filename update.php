@@ -2,24 +2,23 @@
 session_start();
 require 'db.php';
 
-// जर एडमिन लॉगिन नसेल तर परत पाठवा
 if(!isset($_SESSION['admin_logged_in'])) {
     header("Location: login.php");
     exit();
 }
 
-// URL मधून विद्यार्थ्याचा ID घेणे
+
 $id = $_GET['id'] ?? null;
 if (!$id) {
     header("Location: index.php");
     exit();
 }
 
-// डेटाबेसमधून जुनी माहिती काढणे
+
 $query = $conn->query("SELECT * FROM results WHERE id = $id");
 $student = $query->fetch_assoc();
 
-// जेव्हा 'Update' बटण दाबलं जाईल
+
 if (isset($_POST['update'])) {
     $name = $_POST['student_name'];
     $mname = $_POST['mothers_name'];
@@ -28,7 +27,7 @@ if (isset($_POST['update'])) {
     $sci = $_POST['science'];
     $eng = $_POST['english'];
 
-    // माहिती डेटाबेसमध्ये अपडेट (Update) करण्याची SQL Query
+  
     $sql = "UPDATE results SET 
             student_name='$name', 
             mothers_name='$mname', 
